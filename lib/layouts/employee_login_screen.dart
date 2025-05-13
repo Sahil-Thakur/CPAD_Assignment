@@ -1,8 +1,9 @@
+import '../main.dart';
+import 'package:flutter/material.dart';
 import 'package:cpad_assignment/authentication.dart';
 import 'package:cpad_assignment/layouts/employee_list_screen.dart';
-import 'package:flutter/material.dart';
 
-import '../main.dart';
+import 'employee_signup_screen.dart';
 
 class EmployeeLoginScreen extends StatefulWidget {
   const EmployeeLoginScreen({super.key});
@@ -143,16 +144,26 @@ class EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const MyApp(),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 48,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.zero,
                                 ),
-                              );
-                            },
-                            child: const Text('Setup a new account'),
+                                backgroundColor: theme.colorScheme.secondary, // Optional: Differentiate colors
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const EmployeeSignUpScreen(),
+                                  ),
+                                );
+                              },
+                              child: const Text('Setup a new account'),
+                            ),
                           ),
                         ],
                       ),
@@ -170,18 +181,10 @@ class EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
   Future<void> login() async {
     if (key.currentState!.validate()) {
       setState(() => busy = true);
-      final res = await auth.employeeLogin(
-        emailController.text,
-        passwordController.text,
-      );
+      final res = await auth.employeeLogin(emailController.text, passwordController.text,);
 
       if (res.success && mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const EmployeeListScreen(),
-          ),
-        );
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployeeListScreen(),),);
       } else {
         if (mounted) {
           String errorMessage = 'Something went wrong, try again!';
@@ -212,7 +215,6 @@ class EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
               ),
             ),
           );
-
           passwordController.clear();
         }
       }
