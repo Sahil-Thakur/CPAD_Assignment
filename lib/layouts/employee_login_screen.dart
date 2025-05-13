@@ -1,7 +1,7 @@
 import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:cpad_assignment/authentication.dart';
-import 'package:cpad_assignment/layouts/employee_list_screen.dart';
+import 'package:cpad_assignment/layouts/employee_home_screen.dart';
 
 import 'employee_signup_screen.dart';
 
@@ -184,7 +184,7 @@ class EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
       final res = await auth.employeeLogin(emailController.text, passwordController.text,);
 
       if (res.success && mounted) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployeeListScreen(),),);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const EmployeeHomeScreen(),),);
       } else {
         if (mounted) {
           String errorMessage = 'Something went wrong, try again!';
